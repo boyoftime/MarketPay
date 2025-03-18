@@ -143,6 +143,18 @@
       flex-shrink: 0;
     }
 
+    /* Styling for the copy container */
+    .copy-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 4px;
+      padding: 0.5rem;
+      margin: 0.5rem 0;
+      background: rgba(255,255,255,0.1);
+    }
+
     @media (max-width: 768px) {
       .payment-grid {
         grid-template-columns: 1fr 1fr;
@@ -165,27 +177,24 @@
 
     <!-- #comment: Disclaimer box without animations -->
     <div class="disclaimer-box">
-        <!-- General information about MarketPay -->
-        <p class="mb-3 text-center">
-          MarketPay is a self-trading community that generates income through trading markets based on the gems deposited in users' accounts. Please make informed decisions and always verify transactions.
-        </p>
-      
-        <!-- Cautionary advice regarding joining or depositing -->
-        <p class="mb-3 text-center">
-          We strongly recommend that you do not join or deposit gems unless you fully understand this requirement. Market Pay is open to those who have carefully considered these conditions. We do not force or attract users to join; any decision to join must come from your own wish. Do not pay or deposit gems if you are not completely aware of these conditions.
-        </p>
-      
-        <!-- Referral system notice using a list for emphasis -->
-        <p class="mb-2 text-center font-weight-bold">
-          Please note that Market Pay operates on a referral-based system:
-        </p>
-        <ul class="text-center" style="list-style: none; padding: 0; margin: 0 auto; display: inline-block; text-align: left;">
-          <li>• Users with active referrals will receive daily claim profits.</li>
-          <li>• Users without referrals will never receive claim reports.</li>
-        </ul>
-      </div>
-      
-
+      <!-- General information about MarketPay -->
+      <p class="mb-3 text-center">
+        MarketPay is a self-trading community that generates income through trading markets based on the gems deposited in users' accounts. Please make informed decisions and always verify transactions.
+      </p>
+      <!-- Cautionary advice regarding joining or depositing -->
+      <p class="mb-3 text-center">
+        We strongly recommend that you do not join or deposit gems unless you fully understand this requirement. Market Pay is open to those who have carefully considered these conditions. We do not force or attract users to join; any decision to join must come from your own wish. Do not pay or deposit gems if you are not completely aware of these conditions.
+      </p>
+      <!-- Referral system notice using a list for emphasis -->
+      <p class="mb-2 text-center font-weight-bold">
+        Please note that Market Pay operates on a referral-based system:
+      </p>
+      <ul class="text-center" style="list-style: none; padding: 0; margin: 0 auto; display: inline-block; text-align: left;">
+        <li>• Users with active referrals will receive daily claim profits.</li>
+        <li>• Users without referrals will never receive claim reports.</li>
+      </ul>
+    </div>
+    
     <!-- #comment: Payment method buttons grid -->
     <div class="payment-grid">
       <button class="payment-btn" data-method="tigo" style="color: #FFC107">
@@ -224,9 +233,19 @@
     </div>
   </div>
 
-  <!-- #comment: JavaScript to handle payment instructions -->
+  <!-- #comment: JavaScript to handle payment instructions and copying text -->
   <script>
-    // Payment instructions data
+    // Function to copy text from an element by its ID
+    function copyText(id) {
+      const text = document.getElementById(id).innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        alert("Copied: " + text);
+      }).catch(err => {
+        console.error("Copy failed: ", err);
+      });
+    }
+
+    // Payment instructions data with copy containers for payment numbers and wallet address
     const paymentInstructions = {
       tigo: `
         <h3>Deposit via Tigo Pesa 🌟</h3>
@@ -234,7 +253,12 @@
         <p class="instruction-step">Choose 5 (Lipa kwa simu)</p>
         <p class="instruction-step">Choose 5 (To other Network)</p>
         <p class="instruction-step">Choose 3 (Airtel money)</p>
-        <p class="instruction-step">Enter merchant number as <strong>(134 150 06)</strong> Name 'FOREX BUSINESS'</p>
+        <p class="instruction-step">Enter merchant number as:</p>
+        <div class="copy-container">
+          <span class="copy-text" id="merchantNumber-tigo">(134 150 06)</span>
+          <button class="btn btn-sm btn-outline-light ml-2" onclick="copyText('merchantNumber-tigo')"><i class="fas fa-copy"></i> Copy</button>
+        </div>
+        <p class="instruction-step">Name: 'FOREX BUSINESS'</p>
         <p class="instruction-step">Enter amount</p>
         <p class="instruction-step">Enter PIN</p>
         <p class="instruction-step">Done</p>
@@ -247,7 +271,12 @@
         <p class="instruction-step">Choose 1 (Pay with phone)</p>
         <p class="instruction-step">Choose 1 (Enter lipa Number)</p>
         <p class="instruction-step">Choose 1 (M-pesa)</p>
-        <p class="instruction-step">Enter merchant number <strong>(35286848)</strong> name should be BYTESTREAM</p>
+        <p class="instruction-step">Enter merchant number:</p>
+        <div class="copy-container">
+          <span class="copy-text" id="merchantNumber-vodacom">(35286848)</span>
+          <button class="btn btn-sm btn-outline-light ml-2" onclick="copyText('merchantNumber-vodacom')"><i class="fas fa-copy"></i> Copy</button>
+        </div>
+        <p class="instruction-step">Name: BYTESTREAM</p>
         <p class="instruction-step">Enter amount to send</p>
         <p class="instruction-step">Enter PIN</p>
         <p class="instruction-step">Choose 1 to confirm.</p>
@@ -261,7 +290,12 @@
         <p class="instruction-step">Choose 1 (Lipa kwa simu)</p>
         <p class="instruction-step">Choose 2 (Lipa kwa voda lipa)</p>
         <p class="instruction-step">Enter amount</p>
-        <p class="instruction-step">Ingiza lipa namba <strong>(3528 6848)</strong> NAME BYTE-STREAM</p>
+        <p class="instruction-step">Ingiza lipa namba:</p>
+        <div class="copy-container">
+          <span class="copy-text" id="lipaNumber-airtel">(3528 6848)</span>
+          <button class="btn btn-sm btn-outline-light ml-2" onclick="copyText('lipaNumber-airtel')"><i class="fas fa-copy"></i> Copy</button>
+        </div>
+        <p class="instruction-step">NAME: BYTE-STREAM</p>
         <p class="instruction-step">Enter PIN</p>
         <p class="instruction-step">Done</p>
         <p class="instruction-step">Please send a screenshot of the proof of payment to customer care.</p>
@@ -274,7 +308,11 @@
         <p class="instruction-step">Chagua 6 (Lipa hapa)</p>
         <p class="instruction-step">Chagua 3 (TAN QR)</p>
         <p class="instruction-step">Chagua 1 (account yako)</p>
-        <p class="instruction-step">Weka namba ya malipo <strong>(35286848)</strong></p>
+        <p class="instruction-step">Weka namba ya malipo:</p>
+        <div class="copy-container">
+          <span class="copy-text" id="merchantNumber-crdb">(35286848)</span>
+          <button class="btn btn-sm btn-outline-light ml-2" onclick="copyText('merchantNumber-crdb')"><i class="fas fa-copy"></i> Copy</button>
+        </div>
         <p class="instruction-step">Weka kiasi</p>
         <p class="instruction-step">Ingiza 1 kuthibitisha (jina ni BYTESTREAM).</p>
         <p class="instruction-step">Done ✅</p>
@@ -285,7 +323,11 @@
         <p class="instruction-step">Piga <strong>*150*66#</strong></p>
         <p class="instruction-step">Chagua 4 (Lipa mkononi)</p>
         <p class="instruction-step">Chagua 1 (Pay by Tips)</p>
-        <p class="instruction-step">Enter Business Number as <strong>(35286848)</strong></p>
+        <p class="instruction-step">Enter Business Number as:</p>
+        <div class="copy-container">
+          <span class="copy-text" id="merchantNumber-nmb">(35286848)</span>
+          <button class="btn btn-sm btn-outline-light ml-2" onclick="copyText('merchantNumber-nmb')"><i class="fas fa-copy"></i> Copy</button>
+        </div>
         <p class="instruction-step">Enter amount (Ingiza kiasi)</p>
         <p class="instruction-step">Enter PIN (Ingiza PIN yako)</p>
         <p class="instruction-step">Thibitisha kwa kuingiza namba 1 (Jina ni BYTESTREAM)</p>
@@ -297,7 +339,12 @@
         <p class="instruction-step">Dial <strong>*150*88#</strong></p>
         <p class="instruction-step">Choose 5 (Pay merchant)</p>
         <p class="instruction-step">Choose 1 (Pay tanQR)</p>
-        <p class="instruction-step">Enter lipa namba <strong>(3528 6848)</strong> NAME BYTE-STREAM</p>
+        <p class="instruction-step">Enter lipa namba:</p>
+        <div class="copy-container">
+          <span class="copy-text" id="lipaNumber-halotel">(3528 6848)</span>
+          <button class="btn btn-sm btn-outline-light ml-2" onclick="copyText('lipaNumber-halotel')"><i class="fas fa-copy"></i> Copy</button>
+        </div>
+        <p class="instruction-step">NAME: BYTE-STREAM</p>
         <p class="instruction-step">Enter PIN</p>
         <p class="instruction-step">Confirm</p>
         <p class="instruction-step">Done</p>
@@ -306,7 +353,11 @@
       crypto: `
         <h3>Deposit via Crypto</h3>
         <p class="instruction-step">Send only USDT on the TRC20 network.</p>
-        <p class="instruction-step">Wallet Address: <strong>TRznXA9weqLdhXQpon78x1mgXDTtap79Ho</strong></p>
+        <p class="instruction-step">Wallet Address:</p>
+        <div class="copy-container" style="overflow-wrap: break-word;">
+          <span class="copy-text" id="walletAddress-crypto">TRznXA9weqLdhXQpon78x1mgXDTtap79Ho</span>
+          <button class="btn btn-sm btn-outline-light ml-2" onclick="copyText('walletAddress-crypto')"><i class="fas fa-copy"></i> Copy</button>
+        </div>
         <p class="instruction-step">Please ensure you deposit using the correct network to avoid loss of funds.</p>
       `
     };
